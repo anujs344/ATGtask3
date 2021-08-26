@@ -32,7 +32,7 @@ class AuthKey
             {
                 return response()->json(['task' => $request->input('task'),
                                             'status' => '0',
-                                        'message' => "Invalid Api Key"
+                                        'message' => "Invalid Apiii Key"
                     ]);
             }
             else
