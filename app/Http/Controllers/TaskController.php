@@ -43,7 +43,7 @@ class TaskController extends Controller
                                     'message' => 'Marked task as done' 
             ]);
         }
-        else if($req->input('status')== 'PENDING' || $req->input('status') == 'pending')
+        elseif($req->input('status')== 'PENDING' || $req->input('status') == 'pending')
         {
             $taskname = Task::where('id',$req->input('task_id'))->first('task');
             Task::where('id',$req->input('task_id'))->update([

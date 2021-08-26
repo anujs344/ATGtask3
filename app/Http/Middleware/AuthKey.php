@@ -28,7 +28,7 @@ class AuthKey
                                     'message' => "Invalid Api Key"
                 ]);
             }
-            else if(Str::endsWith($url, 'add'))
+            elseif(Str::endsWith($url, 'add'))
             {
                 return response()->json(['task' => $request->input('task'),
                                             'status' => '0',
