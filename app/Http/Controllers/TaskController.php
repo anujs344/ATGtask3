@@ -20,6 +20,16 @@ class TaskController extends Controller
         ]);
     }
 
+    public function showtable()
+    {
+        return Task::all();
+    }
+
+    public function showregister()
+    {
+        return register::all();
+    }
+
     public function updateTask(Request $req)
     {
         if($req->input('status')== 'DONE' || $req->input('status') == 'done')

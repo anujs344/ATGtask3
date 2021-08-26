@@ -28,10 +28,17 @@ class AuthKey
                                     'message' => "Invalid Api Key"
                 ]);
             }
-            return response()->json(['task' => $request->input('task'),
-                                     'status' => '0',
-                                    'message' => "Invalid Api Key"
-                ]);
+            else if(Str::endsWith($url, 'add'))
+            {
+                return response()->json(['task' => $request->input('task'),
+                                            'status' => '0',
+                                        'message' => "Invalid Api Key"
+                    ]);
+            }
+            else
+            {
+                return $next($request);
+            }
         }
         return $next($request);
     }

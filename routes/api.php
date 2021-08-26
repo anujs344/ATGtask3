@@ -22,4 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/todo/add',[TaskController::class,'addTask']);
 
-Route::post('todo/status',[TaskController::class,'updateTask']);
+Route::post('/todo/status',[TaskController::class,'updateTask']);
+
+Route::get('/todo/showtable',[TaskController::class,'showtable']);
+
+Route::get('/todo/showregister',[TaskController::class,'showregister']);
