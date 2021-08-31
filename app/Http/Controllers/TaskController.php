@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\register;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -12,8 +13,10 @@ class TaskController extends Controller
     {
         $task = new Task();
         $task->user_id = $req->input('user_id');
+
         $task->task = $req->input('task');
         $task->save();
+        
         return response()->json(['task'=>$req->input('task'),
                                  'status' => '1',
                                  'message' => 'successfully created a task' 

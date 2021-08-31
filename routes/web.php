@@ -34,11 +34,13 @@ Route::post('/register/details',[RandLController::class,'registerdetials']);
 
 Route::post('/login/details',[RandLController::class,'logindetials']);
 
-Route::get('/profile',function(){
+// Route::get('/profile',function(){
     
-    return view('profile');
+//     return view('profile');
 
-})->middleware('profilecheck');
+// })->middleware('profilecheck');
+
+Route::get('/profile',[RandLController::class,'SendRelatedTask'])->middleware('profilecheck');
 
 Route::get('/logout/profile',function(){
     if(Auth::guard('register')->check())
@@ -47,3 +49,6 @@ Route::get('/logout/profile',function(){
         return redirect('/');
     }
 });
+
+Route::post('/posts',[RandLController::class,'addwithapi']);
+Route::post('/posts2',[RandLController::class,'updatewithapi']);

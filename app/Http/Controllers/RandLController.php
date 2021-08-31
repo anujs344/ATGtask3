@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\register;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use \GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redis;
+use PhpParser\Node\Stmt\Catch_;
 
 class RandLController extends Controller
 {
@@ -48,4 +54,27 @@ class RandLController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
+
+    public function SendRelatedTask()
+    {
+        $count = Task::where('user_id',Auth::guard('register')->user()->id)->count();
+        return view('profile')->with(['tasks'=>Task::where('user_id',Auth::guard('register')->user()->id)->get()])->with('totaltask',$count);
+    }
+
+    public function addwithapi(Request $req)
+    {
+        $request = Request::create('/api/todo/add','POST',['task'=>$req->input('task'),'user_id'=>$req->input('user_id')]);
+        $request->headers->set('APP_KEY', 'helloatg');
+        $response = json_decode(Route::dispatch($request)->getContent());
+        return $response;
+    }
+
+    public function updatewithapi(Request $req)
+    {
+        $request = Request::create('/api/todo/status','POST',['task_id'=>$req->input('task_id'),'status'=>$req->input('status')]);
+        $request->headers->set('APP_KEY', 'helloatg');
+        $response = json_decode(Route::dispatch($request)->getContent());
+        return $response;
+    }
+
 }
