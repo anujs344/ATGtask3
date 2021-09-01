@@ -141,8 +141,7 @@
                     _token:_token
                     },
                     success: function(store) {
-                      location.refresh();
-
+                      location.reload();
                     },
                     error: function() {
                       alert("false");
