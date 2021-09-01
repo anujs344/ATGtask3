@@ -19,10 +19,8 @@ class AuthKey
     public function handle(Request $request, Closure $next)
     {
         
-            $token = $request->header();
-            // if($request->input('APP_KEY') != 'helloatg')
-            return $token;
-            if($token['API_KEY'] != 'helloatg')
+            $token = $request->header('APP_KEY');
+            if($token != 'helloatg')
             {
                 $url = $request->url();
                 if(Str::endsWith($url, 'status'))
