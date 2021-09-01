@@ -11,11 +11,14 @@ class TaskController extends Controller
 {
     public function addTask(Request $req)
     {
+        $register = register::find($req->input('user_id'));
         $task = new Task();
+
         $task->user_id = $req->input('user_id');
 
         $task->task = $req->input('task');
-        $task->save();
+        $register->tasks()->save($task);
+        // $task->save();
         
         return response()->json(['task'=>$req->input('task'),
                                  'status' => '1',
