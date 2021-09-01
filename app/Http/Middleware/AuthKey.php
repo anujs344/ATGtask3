@@ -18,45 +18,32 @@ class AuthKey
      */
     public function handle(Request $request, Closure $next)
     {
-        $token = $request->header('APP_KEY');
-        // if($request->input('APP_KEY') != 'helloatg')
-        if($token != 'helloatg')
-        {
-            $url = $request->url();
-            if(Str::endsWith($url, 'status'))
+            $token = $request->header('APP_KEY');
+            // if($request->input('APP_KEY') != 'helloatg')
+            if($token != 'helloatg')
             {
-                if(Auth::guard('register')->check())
+                $url = $request->url();
+                if(Str::endsWith($url, 'status'))
                 {
-                    return response()->json(['task' => $request->input('task_id'),
-                                        'status' => '0',
-                                        'message' => "Invalid Api Key"
-                    ]);
-                }
-                return "hello";
-            }
-            elseif(Str::endsWith($url, 'add'))
-            {
-                if(Auth::guard('register')->check())
-                {
-                    return response()->json(['task' => $request->input('task'),
-                                                'status' => '0',
-                                            'message' => "Invalid Apiii Key"
+                        return response()->json(['task' => $request->input('task_id'),
+                                            'status' => '0',
+                                            'message' => "Invalid Api Key"
                         ]);
+
                 }
-                return "hello";
+                elseif(Str::endsWith($url, 'add'))
+                {
+                        return response()->json(['task' => $request->input('task'),
+                                                    'status' => '0',
+                                                'message' => "Invalid Apiii Key"
+                            ]);
+                }
+                else
+                {
+                    return $next($request);
+                }
             }
-            else
-            {
                 return $next($request);
-            }
-        }
-        if(Auth::guard('register')->check())
-         {
-            return $next($request);
-         }
-         else
-         {
-             return "hello";
-         }
+            
     }
 }
